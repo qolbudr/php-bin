@@ -4,6 +4,7 @@
     "ctype",
     "zlib",
     "openssl",
+    "brotli",
     "curl",
     "iconv",
     "xml",
@@ -26,5 +27,6 @@
     "tokenizer",
     "xmlwriter",
     "xmlreader",
-    "zip"
+    "zip",
+    "ffi"
 ]

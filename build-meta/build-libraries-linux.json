@@ -11,5 +11,6 @@
     "curl",
     "onig",
     "sqlite",
-    "libzip"
+    "libzip",
+    "libffi"
 ]

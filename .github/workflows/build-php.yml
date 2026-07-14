@@ -26,7 +26,7 @@ jobs:
           [
             "macos-latest",
             "macos-15-intel",
-            "windows-latest",
+            "windows-2022",
             "ubuntu-latest",
             "ubuntu-24.04-arm",
           ]
@@ -60,9 +60,9 @@ jobs:
         if: matrix.os == 'ubuntu-24.04-arm'
         run: echo "SPC_URL=https://github.com/crazywhalecc/static-php-cli/releases/download/${{ env.SPC_VERSION }}/spc-linux-aarch64.tar.gz" >> $GITHUB_ENV
 
-      - name: Set SPC URL for windows-latest
+      - name: Set SPC URL for windows-2022
         shell: bash
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-2022'
         run: |
           echo "SPC_URL=https://github.com/crazywhalecc/static-php-cli/releases/download/${{ env.SPC_VERSION }}/spc-windows-x64.exe" >> $GITHUB_ENV
           echo "SPC_BINARY=spc.exe" >> $GITHUB_ENV
@@ -71,7 +71,7 @@ jobs:
         shell: bash
         run: |
           cd ..
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
             curl -fsSL -o ${{ env.SPC_BINARY }} ${{ env.SPC_URL }}
           else
             curl -fsSL -o ${{ env.SPC_BINARY }}.tar.gz ${{ env.SPC_URL }}
@@ -107,7 +107,7 @@ jobs:
           echo "SPC_BUILD_OS=mac" >> $GITHUB_ENV
 
       - shell: bash
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-2022'
         run: echo "SPC_BUILD_OS=win" >> $GITHUB_ENV
 
       - shell: bash
@@ -152,20 +152,20 @@ jobs:
           cd ../php-bin
 
       - name: Copy icon file for Windows builds
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-2022'
         shell: bash
         run: |
           cp assets/icon.ico ../static-php-cli/
 
       - name: Build PHP (non-Windows)
-        if: matrix.os != 'windows-latest'
+        if: matrix.os != 'windows-2022'
         run: |
           cd ../static-php-cli
           ./bin/${{ env.SPC_BINARY }} build --build-micro "${{ env.PHP_EXTENSIONS }}" --debug
           cd ../php-bin
 
       - name: Build PHP (Windows with custom icon)
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-2022'
         run: |
           cd ../static-php-cli
           ./bin/${{ env.SPC_BINARY }} build --build-micro "${{ env.PHP_EXTENSIONS }}" --debug --with-micro-logo=icon.ico
@@ -189,7 +189,7 @@ jobs:
       - name: Zip PHP binary, copy metadata
         shell: bash
         run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
             powershell Compress-Archive -Path "../static-php-cli/buildroot/bin/micro.sfx" -DestinationPath "bin/${{ env.SPC_BUILD_OS }}/${{ env.SPC_BUILD_ARCH }}/php-${{ env.PHP_VERSION }}.zip" -Force
           else
             rm -f bin/${{ env.SPC_BUILD_OS }}/${{ env.SPC_BUILD_ARCH }}/php-${{ env.PHP_VERSION }}.zip

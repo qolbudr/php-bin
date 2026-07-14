@@ -6,6 +6,7 @@
     "bzip2",
     "zlib",
     "openssl",
+    "brotli",
     "libssh2",
     "libiconv-win",
     "libxml2",
@@ -14,5 +15,6 @@
     "onig",
     "sqlite",
     "xz",
-    "libzip"
+    "libzip",
+    "libffi-win"
 ]

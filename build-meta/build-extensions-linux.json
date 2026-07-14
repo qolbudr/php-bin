@@ -26,5 +26,6 @@
     "xmlwriter",
     "xmlreader",
     "xml",
-    "zip"
+    "zip",
+    "ffi"
 ]

@@ -21,10 +21,14 @@ jobs:
 
     strategy:
       matrix:
-        version: ["8.2", "8.4"]
+        version: ["8.2", "8.3", "8.4", "8.5"]
         os:
           [
-            "windows-2022"
+            "macos-latest",
+            "macos-15-intel",
+            "windows-2022",
+            "ubuntu-latest",
+            "ubuntu-24.04-arm",
           ]
 
     continue-on-error: true
@@ -152,11 +156,6 @@ jobs:
         shell: bash
         run: |
           cp assets/icon.ico ../static-php-cli/
-
-      - name: Disable Windows Defender scanning of build dir
-        if: matrix.os == 'windows-2022'
-        shell: powershell
-        run: Add-MpPreference -ExclusionPath "D:\a"
 
       - name: Build PHP (non-Windows)
         if: matrix.os != 'windows-2022'
